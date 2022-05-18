@@ -1,0 +1,118 @@
+
+中文:
+[1]辛宇. 平扫CT图像肾脏肿瘤的三维分割深度算法研究[D].南京信息工程大学,2021.DOI:10.27248/d.cnki.gnjqc.2021.000857.
+[2]周新宇. 基于三维残差卷积神经网络的脑肿瘤分割研究[D].湘潭大学,2020.DOI:10.27426/d.cnki.gxtdu.2020.001360.
+[3]初莹莹. 基于深度学习的肾脏肿瘤分割算法研究[D].山东大学,2021.DOI:10.27272/d.cnki.gshdu.2021.005689.
+[4]熊小亮,郭翌,汪源源,张岱,叶兆祥,张晟,忻晓洁.基于自适应分区演化水平集的肾脏肿瘤超声图像分割[J].生物医学工程学杂志,2019,36(06):945-956.
+[5]潘覃. 基于卷积神经网络的肾脏肿瘤分割和分类研究[D].东南大学,2019.DOI:10.27014/d.cnki.gdnau.2019.002467.
+[6]郑罡, 王惠南. 基于广义背景填充的塔式多相水平集的脑肿瘤分割算法[J]. Transactions of Nanjing University of Aeronautics and Astronautics, 2007(01):36-42.
+[7]葛婷, 牟宁, 李黎. 基于softmax回归与图割法的脑肿瘤分割算法[J]. 电子学报, 2017, 45(3):6.
+[8]宁民权,文静,黄意,王翊.基于2-3D混合卷积神经网络的胰腺CT图像自动分割算法研究[J].第三军医大学学报,2021,43(18):1729-1734.
+[9]吴菲.基于改进的V-Net模型的肝肿瘤分割算法[J].现代计算机,2021,27(27):64-70.
+[10]颜丙宝,曹秒,李梦媛.结合空洞卷积的多尺度脑肿瘤分割算法[J].长春理工大学学报(自然科学版),2021,44(05):110-114.
+[11]陈宁,郑永果,东野长磊.基于3D Dense U-net网络的肺部肿瘤图像分割算法研究[J].软件,2020,41(12):126-128+229.
+[12]彭苏婷. 基于U-net模块的多尺度脑肿瘤分割网络[D].山东大学,2020.DOI:10.27272/d.cnki.gshdu.2020.005018.
+[13]赵奕名,李锵,关欣.组卷积轻量级脑肿瘤分割网络[J].中国图象图形学报,2020,25(10):2159-2170.
+[14]仵晨阳,何瑶.基于U-Net网络的食管癌病灶的分割研究[J].计算机与数字工程,2020,48(11):2734-2738.
+英文:
+[15]Türk Fuat,Lüy Murat,Barışçı Necaattin. Kidney and Renal Tumor Segmentation Using a Hybrid V-Net-Based Model[J]. Mathematics,2020,8(10):
+[16]Yang Guanyu,Wang Chuanxia,Yang Jian,Chen Yang,Tang Lijun,Shao Pengfei,Dillenseger Jean-Louis,Shu Huazhong,Luo Limin. Weakly-supervised convolutional neural networks of renal tumor segmentation in abdominal CTA images.[J]. BMC medical imaging,2020,20(1):
+[17] Yang G ,  Li G ,  Pan T , et al. Automatic Segmentation of Kidney and Renal Tumor in CT Images Based on 3D Fully Convolutional Neural Network with Pyramid Pooling Module[C]// 2018 24th International Conference on Pattern Recognition (ICPR). 2018.
+[18] Lin Z ,  Cui Y ,  Liu J , et al. Automated segmentation of kidney and renal mass and automated detection of renal mass in CT urography using 3D U-Net-based deep convolutional neural network[J]. European Radiology, 2021.
+[19] Li X ,  Chen H ,  Qi X , et al. H-DenseUNet: Hybrid Densely Connected UNet for Liver and Tumor Segmentation From CT Volumes[J]. IEEE Transactions on Medical Imaging, 2018.
+[20] Jin Q ,  Meng Z ,  Sun C , et al. RA-UNet: A hybrid deep attention-aware network to extract liver and tumor in CT scans[J]. 2018.
+[21]The state of the art in kidney and kidney tumor segmentation in contrast-enhanced CT imaging: Results of the KiTS19 Challenge[J]. 2019.
+[22] Zhao W ,  Jiang D ,  Queralta J P , et al. MSS U-Net: 3D segmentation of kidneys and tumors from CT images with a multi-scale supervised U-Net[J]. Informatics in Medicine Unlocked, 2020, 19:100357.
+[23]The state of the art in kidney and kidney tumor segmentation in contrast-enhanced CT imaging: Results of the KiTS19 Challenge[J].  2019.
+[24] Sabarinathan D ,  Beham M P ,  Roomi S . Hyper Vision Net: Kidney Tumor Segmentation Using Coordinate Convolutional Layer and Attention Unit[J].  2019.
+近年来,基于卷积神经网络的自动分割方法在脑肿瘤分割领域获得了较大的进展,但是依然存在不足。
+其中二维卷积神经网络缺少空间信息,分割精度具有一定的局限性。而三维CNNs虽然有较优的分割性能,因具有空间特征提取充分、分割效果好等优点,但是其参数量过大且计算复杂度过高,存在显存占用量巨大、对硬件资源要求较高等问题。2D CNNs能够有很深的网络结构,3D CNNs受限于显存网络层数有限,但3D CNNs能够学习第三个维度的上下文信息,更适用于三维数据的训练。
+针对上述问题,
+本文提出了一种基于3D残差卷积神经网络的算法用于脑肿瘤分割问题,该算法不但精确度高,而且具有较低的GPU内存消耗和计算复杂度。使用轻量级卷积神经网络Shuffle Net V2作为编码器来减少参数量并获得较大的感受野，还引入了带有残差块的解码器来避免退化问题的发生。[2]
+提出一种轻量级分割算法，使用组卷积来代替常规卷积以显著降低显存占用,并通过多纤单元与通道混合单元增强各组间信息交流。
+为充分利用多显卡协同计算的优势,使用跨卡同步批量归一化以缓解3D卷积神经网络因批量值过小所导致的训练效果差等问题。[13]
+提出了一种基于空洞卷积的多尺度特征提取模块,MD模块的输出包含了多尺度特征信息;增加损失函数中关于肿瘤区域的学习权重,解决类别不平衡问题[10]
+方法以2D胰腺分割网络和3D胰腺分割网络为基础,利用2D分割网络提取的判别性语义信息,3D分割网络提取出三维空间信息,最后将判别性的语义信息和三维空间信息进行融合实现胰腺分割。2-3D方法比2D方法和3D方法分割出的胰腺,在轮廓形态上与对应的手工标注图吻合度更高,更准确。相比于2D方法,2-3D方法有效综合了三维空间信息,对胰腺边缘位置进行了补足,避免了在胰腺边缘出现的漏分割情况。相比于3D方法,2-3D方法有效地利用了2D方法提供的语义信息,规避了在胰腺边缘出现的错误分割的情况。[8]
+基于2D CNNs提出一种双任务神经网络2D SCNet。该网络的分割模块和分类模块共享特征提取层,从特征提取层获取的特征送入分割和分类网络一起训练。分割和分类相结合,分类能够反馈网络的全局上下文信息,分割能够使网络关注局部特征和感兴趣区域（ROI）,两个任务共同促进网络的特征学习且均增加了彼此的先验信息。最终2D SCNet的结果比单任务网络效果要好。[5]
+
+[22]
+提出了一个多尺度监督的三维U-Net(MSS U-Net)，从CT图像中分割肾脏和肿瘤，该架构结合了深度监督和指数对数损失，以提高3D U-Net训练效率，还设计了基于连接组件的后处理方法，以提高整个过程的性能。
+
+与目前最先进的方法相比，该方法具有更好的性能，肾脏和肿瘤的Dice系数分别高达0.969和0.805。我们在KiTS19挑战中测试了MSS U-Net对应的数据集。
+[22]
+
+近年来,基于卷积神经网络的自动分割方法在脑肿瘤分割领域获得了较大的进展,但是依然存在不足。
+其中二维卷积神经网络缺少空间信息,分割精度具有一定的局限性。而三维CNNs虽然有较优的分割性能,但是其参数量过大且计算复杂度过高。
+针对上述问题,
+
+基于三维残差卷积神经网络的脑肿瘤分割研究
+
+本文提出了一种基于3D残差卷积神经网络的算法用于脑肿瘤分割问题,该算法不但精确度高,而且具有较低的GPU内存消耗和计算复杂度。使用轻量级卷积神经网络Shuffle Net V2作为编码器来减少参数量并获得较大的感受野，还引入了带有残差块的解码器来避免退化问题的发生。
+
+
+我们提出了多分辨率的三维V-Net网络来自动分割计算机断层摄影(CT)图像中的肾脏和肾肿瘤，采用了两种分辨率，并针对这两种分辨率提出了一个定制的V-Net模型，称为VB-Net。
+粗分辨率下的VB-Net模型能够稳健地对器官进行定位，而细分辨率下的VB-Net模型能够准确地细化各个器官或病变的边界。
+
+
+
+主要工作如下:1)提出了一种的编码器-解码器结构用于脑肿瘤分割。特别是我们使用轻量级卷积神经网络Shuffle Net V2作为编码器来减少参数量并获得较大的感受野。此外,引入了带有残差块的解码器来避免退化问题的发生。新颖的编解码结构仅需要较低的显存（NVIDIA GTX 1080,8GB）就能完成3D CNN实验。2)提出了一种融合损失函数用于脑肿瘤分割。由于我们所评价的数据集存在严重的数据不平衡问题,融合损失在一定程度上缓解了数据不平衡对网络的影响。同时融合损失使得训练过程波动更小并且提高了网络的收敛速度。3)提出了一种简洁但有效的后处理方法。后处理旨在修正核心肿瘤区域和增强肿瘤区域的预测标签。本文提出的后处理方法有效的修正了核心肿瘤区域和增强肿瘤区域的错误分割结果,极大的改善了网络的分割性能。4)在大脑肿瘤分割挑战赛（BRATS 2018和BRATS 2019）提供的数据集上进行训练和测试。我们使用多个评价指标从不同的角度对分割算法进行评估,实验结果显示,本文方法取得了BRATS 2018数据集下的最优结果,并在BRATS2019数据集上取得了有竞争力的结果。此外,极大的降低了3D CNN计算复杂度,节省了显存消耗。
+
+基于U-Net网络的食管癌病灶的分割研究
+
+该方法首先对食管癌病灶区域利用传统分割技术JSEG算法、分水岭算法、N-Cuts算法以及深度分割网络-U-Net网络进行分割,并对比分析;然后对分割效果较好的U-Net网络进行改进,利用插值算法使其分割线更加完善;最后使用SA、OR、UR、IOU作为分割结果的评价指标,得出U-Net网络和线性插值算法结合的分割方法最优
+
+组卷积轻量级脑肿瘤分割网络
+3D卷积神经网络因具有空间特征提取充分、分割效果好等优点,广泛应用于脑肿瘤分割领域。但由于其存在显存占用量巨大、对硬件资源要求较高等问题,通常需要在网络结构中做出折衷,以牺牲精度或训练速度的方式来适应给定的内存预算。基于以上问题,
+
+提出一种轻量级分割算法，使用组卷积来代替常规卷积以显著降低显存占用,并通过多纤单元与通道混合单元增强各组间信息交流。
+为充分利用多显卡协同计算的优势,使用跨卡同步批量归一化以缓解3D卷积神经网络因批量值过小所导致的训练效果差等问题。
+
+最后提出一种加权混合损失函数,提高分割准确性的同时加快模型收敛速度。结果使用脑肿瘤公开数据集BraTS2018进行测试,本文算法在肿瘤整体区、肿瘤核心区和肿瘤增强区的平均Dice值分别可达90.67%、85.06%和80.41%,参数量和计算量分别为3.2 M和20.51 G,与当前脑肿瘤分割最优算法相比,其精度分别仅相差0.01%、0.96%和1.32%,但在参数量和计算量方面分别降低至对比算法的1/12和1/73。
+
+结合空洞卷积的多尺度脑肿瘤分割算法
+提出了一种基于空洞卷积的多尺度特征提取模块（Multi-scale Feature Extraction Block based on Dilate Convolution,MD）,MD模块的输出包含了多尺度特征信息;增加损失函数中关于肿瘤区域的学习权重,解决类别不平衡问题
+
+基于2-3D混合卷积神经网络的胰腺CT图像自动分割算法研究
+方法以2D胰腺分割网络和3D胰腺分割网络为基础,利用2D分割网络提取的判别性语义信息,3D分割网络提取出三维空间信息,最后将判别性的语义信息和三维空间信息进行融合实现胰腺分割。结果本研究在NIH数据集上的进行了验证,平均DICE系数达到83.2%（最大值90.65%,最小值67.04%）。分别超出了2D基准方法和3D基准方法0.77%和1.38%。其胰腺分割结果细节准确,边缘平滑。2-3D方法分割出的胰腺组织相比于2D方法和3D方法分割出的胰腺,在轮廓形态上与对应的手工标注图吻合度更高,更准确。相比于2D方法,2-3D方法有效综合了三维空间信息,对胰腺边缘位置进行了补足,避免了在胰腺边缘出现的漏分割情况。相比于3D方法,2-3D方法有效地利用了2D方法提供的语义信息,规避了在胰腺边缘出现的错误分割的情况。
+
+
+
+混合密集连接unet（H-DenseUNet）。
+
+采用端到端训练方式。
+
+使用ResNet轮廓粗提取、设计2D DenseUnet提取切片内特征，3D DenseUnet提取切片间特征，再用HFF层将2D和3D特征融合
+
+
+
+[1]朱建宝,马青山,俞鑫春,邓伟超.基于PSPNet的变电站人员巡检危险行为检测[J].自动化与仪表,2021,36(11):35-39.
+[2]高琛,冯德俊,胡金林,王杰茜.改进特征金字塔网络的遥感影像崩滑体提取[J].测绘科学,2021,46(11):32-38+46.
+[3]曹富强,王明泉,张俊生,邵亚璐,张雪洋.基于深度学习的铸件X射线图像分割研究[J].应用光学,2021,42(06):1025-1033.
+[4]史健锋,高志明,王阿川.结合ASPP与改进HRNet的多尺度图像语义分割方法研究[J].液晶与显示,2021,36(11):1497-1505.
+[5]商建东,刘艳青,高需.多尺度特征提取的道路场景语义分割[J].计算机应用与软件,2021,38(11):174-178.
+[6]马欣然,涂展春,冉仕举.Deep Learning Quantum States for Hamiltonian Estimation[J].Chinese Physics Letters,2021,38(11):6-16.
+[7]刘颖,陶建峰,黄武涛,刘成良.小波包能量与CNN相结合的滚动轴承故障诊断方法[J].机械设计与制造,2021(11):127-131.
+[8]Yu-Wen Cai,Fang-Fen Dong,Yu-Heng Shi,Li-Yuan Lu,Chen Chen,Ping Lin,Yu-Shan Xue,Jian-Hua Chen,Su-Yu Chen,Xiong-Biao Luo.Deep learning driven colorectal lesion detection in gastrointestinal endoscopic and pathological imaging[J].World Journal of Clinical Cases,2021,9(31):9376-9385.
+[9]金飞,王龙飞,刘智,王番,贾桂芬.一种双U-Net的遥感影像道路提取方法[J].测绘科学技术学报,2019,36(04):377-381+387.
+[10]张禹,赵妍妍,司峥鸣.基于深度学习的评论打分预测方法综述[J].信息技术,2021(10):1-13.
+
+[1]SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation.[J] . Badrinarayanan Vijay,Kendall Alex,Cipolla Roberto.  IEEE transactions on pattern analysis and machine intelligence . 2017 (12)
+[2]MRI and contrast enhanced ultrasound （CEUS） image fusion of renal lesions[J] . J. Rübenthaler,K.J. Paprottka,J. Marcon,M. Reiser,D.A. Clevert.  <journal-title>Clinical Hemorheology and Microcir . 2016 (3)
+[3]BrainNetCNN: Convolutional neural networks for brain networks; towards predicting neurodevelopment[J] . Jeremy Kawahara,Colin J. Brown,Steven P. Miller,Brian G. Booth,Vann Chau,Ruth E. Grunau,Jill G. Zwicker,Ghassan Hamarneh.  NeuroImage . 2016
+[4]Convolutional Neural Networks for Medical Image Analysis: Full Training or Fine Tuning?[J] . Tajbakhsh Nima,Shin Jae Y,Gurudu Suryakanth R,Hurst R Todd,Kendall Christopher B,Gotway Michael B,Jianming Liang.  IEEE transactions on medical imaging . 2016 (5)
+[5]Multi-atlas segmentation of biomedical images: A survey[J] . Juan Eugenio Iglesias,Mert R. Sabuncu.  Medical Image Analysis . 2015 (1)
+[6]CT Texture Analysis of Renal Masses[J] . Siva P. Raman,Yifei Chen,James L. Schroeder,Peng Huang,Elliot K. Fishman.  Academic Radiology . 2014
+[7]Renal angiomyolipoma: a radiological classification and update on recent developments in diagnosis and management[J] . Masahiro Jinzaki,Stuart G. Silverman,Hirotaka Akita,Yoji Nagashima,Shuji Mikami,Mototsugu Oya.  Abdominal Imaging . 2014 (3)
+
+[1]Badrinarayanan V, Kendall A, Cipolla R. Segnet: A deep convolutional encoder-decoder architecture for image segmentation[J]. IEEE transactions on pattern analysis and machine intelligence, 2017, 39(12): 2481-2495.
+[1]Zong-Ding Wang,Salameen Haitham,Jian-Ping Gong,Zi-Li Pen.Contrast enhanced ultrasound in diagnosing liver lesion that spontaneously disappeared:A case report[J].World Journal of Clinical Cases,2021,9(21):5948-5954.
+[1]Kawahara J, Brown C J, Miller S P, et al. BrainNetCNN: Convolutional neural networks for brain networks; towards predicting neurodevelopment[J]. NeuroImage, 2017, 146: 1038-1049.
+[1]Tajbakhsh N, Shin J Y, Gurudu S R, et al. Convolutional neural networks for medical image analysis: Full training or fine tuning?[J]. IEEE transactions on medical imaging, 2016, 35(5): 1299-1312.
+[1]Iglesias J E, Sabuncu M R. Multi-atlas segmentation of biomedical images: a survey[J]. Medical image analysis, 2015, 24(1): 205-219.
+[1]Raman S P, Chen Y, Schroeder J L, et al. CT texture analysis of renal masses: pilot study using random forest classification for prediction of pathology[J]. Academic radiology, 2014, 21(12): 1587-1596.
+[1]Jinzaki M, Silverman S G, Akita H, et al. Renal angiomyolipoma: a radiological classification and update on recent developments in diagnosis and management[J]. Abdominal imaging, 2014, 39(3): 588-604.
+
+
+
+
+
