@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "train_segmentation.py", line 2, in <module>
+    from torch.utils.data import DataLoader
+ModuleNotFoundError: No module named 'torch'
+Traceback (most recent call last):
+  File "train_segmentation.py", line 2, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+Traceback (most recent call last):
+  File "train_segmentation.py", line 128, in <module>
+    train(args)
+  File "train_segmentation.py", line 22, in train
+    json_opts = json_file_to_pyobj(json_filename)
+  File "/mnt/data/linda/wzm/Attention-Gated-Networks/utils/util.py", line 89, in json_file_to_pyobj
+    return json2obj(open(filename).read())
+FileNotFoundError: [Errno 2] No such file or directory: '/home/linda/wzm/Attention-Gated-Networks/configs/config_nonlocal_dsv.json'
+  File "train_segmentation.py", line 95
+    error_logger.update({**errors, **stats}, split=split)
+                          ^
+SyntaxError: invalid syntax
+  File "train_segmentation.py", line 95
+    error_logger.update({**errors, **stats}, split=split)
+                          ^
+SyntaxError: invalid syntax

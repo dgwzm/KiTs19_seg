@@ -1,0 +1,66 @@
+{
+    "training":{
+        "max_it":10,
+        "arch_type": "List",
+        "n_epochs": 120,
+        "save_epoch_freq": 1,
+        "lr_policy": "step",
+        "gamma": 0.65,
+        "lr_decay_iters": 6,
+        "lr_red_factor": 0.1,
+        "batchSize": 24,
+        "preloadData": false,
+        "num_workers" : 8,
+        "sampler": "weighted2",
+        "bgd_weight_multiplier": 13
+    },
+    "visualisation":{
+        "server": "http://localhost",
+        "display_port": 8097,
+        "no_html": true,
+        "display_winsize": 300,
+        "display_id": 2,
+        "display_single_pane_ncols": 0,
+        "summary_name":"cont_0_BNdice",
+        "pth": "/home/linda/wzm/Attention-Gated-Networks/src/CT_att/logs"
+    },
+    "data_path": {
+        "List": "/home/linda/wzm/LITS/"
+    },
+    "augmentation": {
+        "List": {
+            "patch_size": [208, 272],
+            "shift": [0.02,0.02],
+            "rotate": 25.0,
+            "scale": [0.7,1.3],
+            "intensity": [1.0,1.0],
+            "random_flip_prob": 0.5
+        }
+    },
+    "model":{
+        "type":"seg",
+        "criterion":"dice_loss_2",
+        "optim":"adam",
+        "model_type": "unet_CT_att",
+        "tensor_dim": "2D",
+        "nonlocal_mode": "embedded_gaussian",
+        "aggregation_mode": "mean",
+        "weight":[1, 1, 1],
+        "aggregation":"mean",
+        "continue_train": true,
+        "which_epoch": 0,
+        "input_nc": 1,
+        "output_nc": 2,
+        "attention_dsample": "embedded_gaussian",
+        "wh":304,
+       	"lr_rate": 0.00000001,
+        "l2_reg_weight": 1e-4,
+        "feature_scale": 4,
+        "gpu_ids": [0],
+	"cut_gpu": "2",
+        "isTrain": true,
+        "path_pre_trained_model":"/home/linda/wzm/Attention-Gated-Networks/src/CT_att/CT_att/089_net_0.83023.pth",
+        "checkpoints_dir": "/home/linda/wzm/Attention-Gated-Networks/src/CT_att",
+        "experiment_name": "CT_att"
+    }
+}

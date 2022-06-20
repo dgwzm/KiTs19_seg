@@ -1,0 +1,167 @@
+Checking for scripts.
+It's Alive!
+You can navigate to http://localhost:8097
+Checking for scripts.
+It's Alive!
+You can navigate to http://localhost:8097
+Checking for scripts.
+It's Alive!
+You can navigate to http://localhost:8097
+
+
+############# Augmentation Parameters #############
+{'division_factor': (16, 16, 1),
+ 'inten_val': (1.0, 1.0),
+ 'name': 'List',
+ 'patch_size': [208, 272],
+ 'random_flip_prob': 0.5,
+ 'rotate_val': 15.0,
+ 'scale_size': (192, 192, 1),
+ 'scale_val': (0.7, 1.3),
+ 'shift_val': (0.1, 0.1)}
+###################################################
+
+
+
+Initialising model unet_nonlocal
+filters [16, 32, 64, 128, 256]
+m Sequential(
+  (0): Conv2d(16, 4, kernel_size=(1, 1), stride=(1, 1))
+  (1): MaxPool2d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+)
+m Sequential(
+  (0): Conv2d(4, 16, kernel_size=(1, 1), stride=(1, 1))
+  (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+)
+m Conv2d(16, 4, kernel_size=(1, 1), stride=(1, 1))
+m Sequential(
+  (0): Conv2d(16, 4, kernel_size=(1, 1), stride=(1, 1))
+  (1): MaxPool2d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+)
+m Sequential(
+  (0): Conv2d(32, 8, kernel_size=(1, 1), stride=(1, 1))
+  (1): MaxPool2d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+)
+m Sequential(
+  (0): Conv2d(8, 32, kernel_size=(1, 1), stride=(1, 1))
+  (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+)
+m Conv2d(32, 8, kernel_size=(1, 1), stride=(1, 1))
+m Sequential(
+  (0): Conv2d(32, 8, kernel_size=(1, 1), stride=(1, 1))
+  (1): MaxPool2d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+)
+Loading the model 107_net_0.39287.pth - epoch 107
+Network is initialized
+Model [FeedForwardSegmentation] is created
+opt.lr_policy = [step]
+Scheduler is added for optimiser Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    initial_lr: 2e-05
+    lr: 2e-05
+    weight_decay: 0.0001
+)
+(epoch: 0, total # iters: 1801)
+(epoch: 0, split: train) Seg_Loss: 0.53097 
+(epoch: 0, split: validation) Seg_Loss: 0.39446 Overall_Acc: 0.99390 Mean_IOU: 0.66411 Class_0: 0.99622 Class_1: 0.77950 
+Saving the model S at the end of epoch 0
+current learning rate = 0.0000200
+(epoch: 1, total # iters: 1801)
+(epoch: 1, split: train) Seg_Loss: 0.53097 
+(epoch: 1, split: validation) Seg_Loss: 0.39617 Overall_Acc: 0.99354 Mean_IOU: 0.69507 Class_0: 0.99596 Class_1: 0.81955 
+Saving the model S at the end of epoch 1
+current learning rate = 0.0000200
+(epoch: 2, total # iters: 1801)
+(epoch: 2, split: train) Seg_Loss: 0.53120 
+(epoch: 2, split: validation) Seg_Loss: 0.39590 Overall_Acc: 0.99436 Mean_IOU: 0.71473 Class_0: 0.99642 Class_1: 0.84540 
+Saving the model S at the end of epoch 2
+current learning rate = 0.0000200
+(epoch: 3, total # iters: 1801)
+(epoch: 3, split: train) Seg_Loss: 0.53074 
+(epoch: 3, split: validation) Seg_Loss: 0.39582 Overall_Acc: 0.99443 Mean_IOU: 0.76328 Class_0: 0.99648 Class_1: 0.87153 
+Saving the model S at the end of epoch 3
+current learning rate = 0.0000200
+(epoch: 4, total # iters: 1801)
+(epoch: 4, split: train) Seg_Loss: 0.53104 
+(epoch: 4, split: validation) Seg_Loss: 0.39570 Overall_Acc: 0.99442 Mean_IOU: 0.71703 Class_0: 0.99645 Class_1: 0.84425 
+Saving the model S at the end of epoch 4
+current learning rate = 0.0000200
+(epoch: 5, total # iters: 1801)
+(epoch: 5, split: train) Seg_Loss: 0.53106 
+(epoch: 5, split: validation) Seg_Loss: 0.39623 Overall_Acc: 0.99262 Mean_IOU: 0.66235 Class_0: 0.99548 Class_1: 0.74462 
+Saving the model S at the end of epoch 5
+current learning rate = 0.0000200
+(epoch: 6, total # iters: 1801)
+(epoch: 6, split: train) Seg_Loss: 0.53111 
+(epoch: 6, split: validation) Seg_Loss: 0.39548 Overall_Acc: 0.99387 Mean_IOU: 0.69100 Class_0: 0.99615 Class_1: 0.81189 
+Saving the model S at the end of epoch 6
+current learning rate = 0.0000200
+(epoch: 7, total # iters: 1801)
+(epoch: 7, split: train) Seg_Loss: 0.53110 
+(epoch: 7, split: validation) Seg_Loss: 0.39985 Overall_Acc: 0.98993 Mean_IOU: 0.63846 Class_0: 0.99398 Class_1: 0.69120 
+Saving the model S at the end of epoch 7
+current learning rate = 0.0000100
+(epoch: 8, total # iters: 1801)
+(epoch: 8, split: train) Seg_Loss: 0.53051 
+(epoch: 8, split: validation) Seg_Loss: 0.39514 Overall_Acc: 0.99472 Mean_IOU: 0.72724 Class_0: 0.99664 Class_1: 0.85548 
+Saving the model S at the end of epoch 8
+current learning rate = 0.0000100
+(epoch: 9, total # iters: 1801)
+(epoch: 9, split: train) Seg_Loss: 0.53053 
+(epoch: 9, split: validation) Seg_Loss: 0.39592 Overall_Acc: 0.99476 Mean_IOU: 0.74394 Class_0: 0.99665 Class_1: 0.86636 
+Saving the model S at the end of epoch 9
+current learning rate = 0.0000100
+(epoch: 10, total # iters: 1801)
+(epoch: 10, split: train) Seg_Loss: 0.53092 
+(epoch: 10, split: validation) Seg_Loss: 0.39547 Overall_Acc: 0.99401 Mean_IOU: 0.71586 Class_0: 0.99624 Class_1: 0.83441 
+Saving the model S at the end of epoch 10
+current learning rate = 0.0000100
+(epoch: 11, total # iters: 1801)
+(epoch: 11, split: train) Seg_Loss: 0.53060 
+(epoch: 11, split: validation) Seg_Loss: 0.39548 Overall_Acc: 0.99403 Mean_IOU: 0.70095 Class_0: 0.99626 Class_1: 0.82363 
+Saving the model S at the end of epoch 11
+current learning rate = 0.0000100
+(epoch: 12, total # iters: 1801)
+(epoch: 12, split: train) Seg_Loss: 0.53075 
+(epoch: 12, split: validation) Seg_Loss: 0.39481 Overall_Acc: 0.99427 Mean_IOU: 0.67531 Class_0: 0.99640 Class_1: 0.81031 
+Saving the model S at the end of epoch 12
+current learning rate = 0.0000100
+(epoch: 13, total # iters: 1801)
+(epoch: 13, split: train) Seg_Loss: 0.53073 
+(epoch: 13, split: validation) Seg_Loss: 0.39592 Overall_Acc: 0.99373 Mean_IOU: 0.70065 Class_0: 0.99606 Class_1: 0.81024 
+Saving the model S at the end of epoch 13
+current learning rate = 0.0000100
+(epoch: 14, total # iters: 1801)
+(epoch: 14, split: train) Seg_Loss: 0.53052 
+(epoch: 14, split: validation) Seg_Loss: 0.39583 Overall_Acc: 0.99456 Mean_IOU: 0.73882 Class_0: 0.99654 Class_1: 0.86584 
+Saving the model S at the end of epoch 14
+current learning rate = 0.0000100
+(epoch: 15, total # iters: 1801)
+(epoch: 15, split: train) Seg_Loss: 0.53069 
+(epoch: 15, split: validation) Seg_Loss: 0.39524 Overall_Acc: 0.99463 Mean_IOU: 0.72563 Class_0: 0.99658 Class_1: 0.85087 
+Saving the model S at the end of epoch 15
+current learning rate = 0.0000050
+(epoch: 16, total # iters: 1801)
+(epoch: 16, split: train) Seg_Loss: 0.53062 
+(epoch: 16, split: validation) Seg_Loss: 0.39517 Overall_Acc: 0.99460 Mean_IOU: 0.73148 Class_0: 0.99656 Class_1: 0.85344 
+Saving the model S at the end of epoch 16
+current learning rate = 0.0000050
+(epoch: 17, total # iters: 1801)
+(epoch: 17, split: train) Seg_Loss: 0.53054 
+(epoch: 17, split: validation) Seg_Loss: 0.39527 Overall_Acc: 0.99460 Mean_IOU: 0.73790 Class_0: 0.99657 Class_1: 0.86275 
+Saving the model S at the end of epoch 17
+current learning rate = 0.0000050
+(epoch: 18, total # iters: 1801)
+(epoch: 18, split: train) Seg_Loss: 0.53070 
+(epoch: 18, split: validation) Seg_Loss: 0.39509 Overall_Acc: 0.99448 Mean_IOU: 0.72799 Class_0: 0.99651 Class_1: 0.84323 
+Saving the model S at the end of epoch 18
+current learning rate = 0.0000050
+(epoch: 19, total # iters: 1801)
+(epoch: 19, split: train) Seg_Loss: 0.53088 
+(epoch: 19, split: validation) Seg_Loss: 0.39514 Overall_Acc: 0.99466 Mean_IOU: 0.73433 Class_0: 0.99661 Class_1: 0.85207 
+Saving the model S at the end of epoch 19
+current learning rate = 0.0000050
+(epoch: 20, total # iters: 1801)
