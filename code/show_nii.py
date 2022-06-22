@@ -42,6 +42,7 @@ def show_pic(list):
         d1=epi_img_data_2[150,:,:]
         #d1=d1[np.newaxis,:]
         d1[d1==1]=255
+        d1[d1==2]=100
         data=np.concatenate((new_img,img_L),1)
         data=np.concatenate((data,d1),1)
         #data=torch.from_numpy(data)
