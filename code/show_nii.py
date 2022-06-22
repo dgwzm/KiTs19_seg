@@ -16,7 +16,7 @@ import visdom
 def show_pic(list):
     root = path= os.path.dirname(os.path.abspath(__file__))
 
-    vis = visdom.Visdom(env='test0')
+    vis = visdom.Visdom(env='test2')
     num=0
     for i in list:
         
@@ -32,8 +32,10 @@ def show_pic(list):
         down=2048
         new_img=(up/down)*255
 
-        img_pil = Image.fromarray(img_old)
-        I = img_pil.convert('L')
+        img_old[img_old<0]=0
+        I=(img_old/1024)*255
+        #img_pil = Image.fromarray(img_old)
+        #I = img_pil.convert('L')
         img_L = np.array(I)
         #img_L=img_L[np.newaxis,:]
         
@@ -85,11 +87,14 @@ def show_seg(list):
 
 if __name__=='__main__':
     img_list=[
-        [r"D:\BaiduYunDownload\KiTs_old_data\case_00000\master_00000\imaging.nii",
-        r"D:\BaiduYunDownload\KiTs_old_data\case_00000\segmentation.nii"],
-        [r"D:\BaiduYunDownload\KiTs_old_data\case_00000\master_00000\imaging.nii",
-         r"D:\BaiduYunDownload\KiTs_old_data\case_00000\segmentation.nii"]
-    ]
+        [r"/home/linda/wzm/kits19/data/master_00000.nii",
+        r"/home/linda/wzm/kits19/label/segmentation_00000.nii"],
+        [r"/home/linda/wzm/kits19/data/master_00003.nii",
+        r"/home/linda/wzm/kits19/label/segmentation_00003.nii"], 
+        [r"/home/linda/wzm/kits19/data/master_00008.nii",
+        r"/home/linda/wzm/kits19/label/segmentation_00008.nii"],
+        [r"/home/linda/wzm/kits19/data/master_00005.nii",
+        r"/home/linda/wzm/kits19/label/segmentation_00005.nii"]]
     img_l=[
         r"D:\BaiduYunDownload\KiTs_old_data\case_00000\master_00000\imaging.nii",
         r"D:\BaiduYunDownload\KiTs_old_data\case_00000\segmentation.nii",
