@@ -57,7 +57,7 @@
         "l2_reg_weight": 1e-4,
         "feature_scale": 4,
         "gpu_ids": [0],
-	"cut_gpu": "0",
+	    "cut_gpu": "0",
         "isTrain": true,
         "path_pre_trained_model":"/home/linda/wzm/Attention-Gated-Networks/src/CT_two_seg/CT_two_seg/119_net_0.15205.pth",
         "checkpoints_dir": "/home/linda/wzm/Attention-Gated-Networks/src/new_CT_two_seg",

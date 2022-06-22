@@ -61,8 +61,6 @@ def plotNNFilterOverlay(input_im, units, figure_id, interp='bilinear',
     # plt.savefig('{}/{}.png'.format(dir_name,time.time()))
 
 
-
-
 ## Load options
 PAUSE = .01
 #config_name = 'config_sononet_attention_fs8_v6.json'

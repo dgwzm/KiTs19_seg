@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import ntpath
 import time
-from utils import util, html
+from . import util, html
 from tensorboardX import SummaryWriter
 
 # Use the following comment to launch a visdom server

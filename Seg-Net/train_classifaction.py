@@ -1,8 +1,6 @@
 import numpy as np
 from torch.utils.data import DataLoader, sampler
 from tqdm import tqdm
-
-
 from dataio.loader import get_dataset, get_dataset_path
 from dataio.transformation import get_dataset_transformation
 from utils.util import json_file_to_pyobj
@@ -11,7 +9,6 @@ from utils.error_logger import ErrorLogger
 from models.networks_other import adjust_learning_rate
 
 from models import get_model
-
 
 class StratifiedSampler(object):
     """Stratified Sampling
