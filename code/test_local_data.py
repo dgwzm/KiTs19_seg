@@ -6,6 +6,8 @@ import nibabel as nib
 import matplotlib.pyplot as plt
 import cv2
 import time
+from tqdm import tqdm
+import SimpleITK as sitk
 
 def show_seg(list):
     path=r"D:\torch_keras_code\KiTs_old_data\case_00000\master_00000"
@@ -74,8 +76,6 @@ def test_np(list):
     plt.show()
 
 def test_show_way():
-    path=r"D:\torch_keras_code\KiTs_old_data\case_00000\master_00000\imaging_0.npy"
-    img = np.load(path)
 
     path=r"D:\torch_keras_code\KiTs_old_data\case_00000\master_00000\imaging.nii"
     epi_img_1 = nib.load(path)
@@ -99,11 +99,16 @@ def test_show_way():
     way_2 = np.array(old,dtype=np.uint8)
 
     plt.figure(0)
-    plt.subplot(1,2,1)
+    plt.subplot(1,3,1)
     plt.imshow(way_1)
-    plt.subplot(1,2,2)
+    plt.subplot(1,3,2)
     plt.imshow(way_2)
 
+    #itk=sitk.ReadImage(path)
+    #img=sitk.GetImageFromArray(itk)
+    #print("img shape:",img.shape)
+    #plt.subplot(1,3,3)
+    #plt.imshow(img[150,:,:],cmap="gray")
     plt.show()
 
 def img_nii_png(list=None):
@@ -133,6 +138,22 @@ def img_nii_png(list=None):
         save_path=os.path.join(way_1_path,"%.3d.jpg"%(id_dex))
         img_1.save(save_path)
 
+def label_jpg():
+    nii_file=r"D:\torch_keras_code\KiTs_old_data\case_00000\master_00000\segmentation.nii"
+    new_dir=r"D:\torch_keras_code\KiTs_old_data\case_00000\save_label"
+    epi_img = nib.load(nii_file)
+    imgs = epi_img.get_fdata()
+    id_dex=0
+    for img in tqdm(imgs):
+        id_dex=id_dex+1
+        img[img==1]=125
+        img[img==2]=255
+
+        way_0 = np.array(img,dtype=np.uint8)
+        img_0 = Image.fromarray(way_0).convert('L')
+        save_path=os.path.join(new_dir,"%.3d.jpg"%(id_dex))
+        img_0.save(save_path)
+
 
 if __name__=='__main__':
     img_l=["imaging.nii","segmentation.nii"]
@@ -149,8 +170,9 @@ if __name__=='__main__':
     print(imgs.shape)
     end = time.time()
     print("npy use time:",end-start)
+    #label_jpg()
     #img_nii_png()
-    #test_show_way()
+    test_show_way()
     #save_np(img_l)
     #test_np(np_list)
     #show_seg(img_l)

@@ -41,63 +41,64 @@ def save_img_jpg():
     jpg_path_1="/home/linda/wzm/kits19/data_jpg_1"
     file_name_list=os.listdir(o_img_path)
     for f in tqdm(file_name_list):
-        file_nam=f[:-3]
-        new_dir_0=os.path.join(jpg_path_0,file_nam)
-        if not os.path.exists(new_dir_0):
-            os.makedirs(new_dir_0)
+        if "master" in f:
+            file_nam=f[:-3]
+            new_dir_0=os.path.join(jpg_path_0,file_nam)
+            new_dir_1=os.path.join(jpg_path_1,file_nam)
+            if os.path.exists(new_dir_0) and os.path.exists(new_dir_1):
+                continue
+            else:
+                os.makedirs(new_dir_0)
+                os.makedirs(new_dir_1)
+            nii_file=os.path.join(o_img_path,f)
+            epi_img = nib.load(nii_file)
+            img = epi_img.get_fdata()
+            id_dex=0
+            for old in img:
+                id_dex=id_dex+1
+                test_old=old[:]
+                test_old[test_old<-255]=-255
+                test_old[test_old>255]=255
+                up=test_old+255
+                down=510
+                I=(up/down)*255
+                way_0 = np.array(I,dtype=np.uint8)
+                img_0 = Image.fromarray(way_0).convert('L')
+                save_path=os.path.join(new_dir_0,"%.3d.jpg"%(id_dex))
+                img_0.save(save_path)
 
-        new_dir_1=os.path.join(jpg_path_1,file_nam)
-        if not os.path.exists(new_dir_1):
-            os.makedirs(new_dir_1)
-
-        nii_file=os.path.join(o_img_path,f)
-
-        epi_img = nib.load(nii_file)
-        img = epi_img.get_fdata()
-        id_dex=0
-        for old in img:
-            id_dex=id_dex+1
-            test_old=old[:]
-            test_old[test_old<-255]=-255
-            test_old[test_old>255]=255
-            up=test_old+255
-            down=510
-            I=(up/down)*255
-            way_0 = np.array(I,dtype=np.uint8)
-            img_0 = Image.fromarray(way_0).convert('L')
-            save_path=os.path.join(new_dir_0,"%.3d.jpg"%(id_dex))
-            img_0.save(save_path)
-
-            old[old<0]=0
-            old[old>255]=255
-            way_1 = np.array(old,dtype=np.uint8)
-            img_1 = Image.fromarray(way_1).convert('L')
-            save_path=os.path.join(new_dir_1,"%.3d.jpg"%(id_dex))
-            img_1.save(save_path)
+                old[old<0]=0
+                old[old>255]=255
+                way_1 = np.array(old,dtype=np.uint8)
+                img_1 = Image.fromarray(way_1).convert('L')
+                save_path=os.path.join(new_dir_1,"%.3d.jpg"%(id_dex))
+                img_1.save(save_path)
 
 def save_label_jpg():
     o_img_path="/home/linda/wzm/kits19/label"
     jpg_path="/home/linda/wzm/kits19/label_jpg"
     file_name_list=os.listdir(o_img_path)
     for f in tqdm(file_name_list):
-        file_nam=f[:-3]
-        new_dir=os.path.join(jpg_path,file_nam)
-        if not os.path.exists(new_dir):
-            os.makedirs(new_dir)
 
-        nii_file=os.path.join(o_img_path,f)
-
-        epi_img = nib.load(nii_file)
-        imgs = epi_img.get_fdata()
-        id_dex=0
-        for img in imgs:
-            img[img==1]=125
-            img[img==2]=255
-
-            way_0 = np.array(img,dtype=np.uint8)
-            img_0 = Image.fromarray(way_0).convert('L')
-            save_path=os.path.join(new_dir,"%.3d.jpg"%(id_dex))
-            img_0.save(save_path)
+        if "segment" in f:
+            file_nam=f[:-3]
+            new_dir=os.path.join(jpg_path,file_nam)
+            if os.path.exists(new_dir):
+                continue
+            else:
+                os.makedirs(new_dir)
+            nii_file=os.path.join(o_img_path,f)
+            epi_img = nib.load(nii_file)
+            imgs = epi_img.get_fdata()
+            id_dex=0
+            for img in imgs:
+                id_dex=id_dex+1
+                img[img==1]=125
+                img[img==2]=255
+                way_0 = np.array(img,dtype=np.uint8)
+                img_0 = Image.fromarray(way_0).convert('L')
+                save_path=os.path.join(new_dir,"%.3d.jpg"%(id_dex))
+                img_0.save(save_path)
 
 
 if __name__=='__main__':
