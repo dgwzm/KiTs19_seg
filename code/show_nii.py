@@ -99,6 +99,8 @@ if __name__=='__main__':
         r"D:\BaiduYunDownload\KiTs_old_data\case_00000\master_00000\imaging.nii",
         r"D:\BaiduYunDownload\KiTs_old_data\case_00000\segmentation.nii",
     ]
+
+
     #show_seg(img_l)
     show_pic(img_list)
     
