@@ -1,15 +1,12 @@
 import numpy as np
-import pandas as pd
 import os
 import ntpath
 import time
-from tensorboardX import SummaryWriter
 import nibabel as nib
 import cv2
 import matplotlib.pyplot as plt
 from nibabel.viewers import OrthoSlicer3D
 from PIL import Image
-import torch
 import visdom
 
 

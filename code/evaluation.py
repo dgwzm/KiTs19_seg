@@ -3,7 +3,6 @@ from starter_code.utils import load_segmentation
 import numpy as np
 import nibabel as nib
 
-
 def evaluate(case_id, predictions):
     # Handle case of softmax output
     if len(predictions.shape) == 4:
