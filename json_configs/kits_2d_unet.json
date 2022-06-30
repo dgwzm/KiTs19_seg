@@ -1,0 +1,140 @@
+{
+    "train":{
+        "n_epochs": 150,
+        "save_epoch_freq": 1,
+        "lr_policy": "CyclicLR",
+        "lr_policy_list": ["Lambda","CyclicLR","step","multi_step","cosine_Anneal","plateau","exponential"],
+        "optim":"Adadelta",
+        "optim_list":["sgd","A_sgd","RMS","Adadelta","Adam","Adamx","AdaBound","AdaBoundW","AdaBelief"],
+        "batchSize": 24,
+        "num_workers" : 4,
+        "data_dir": "D:/torch_keras_code/kits_data_label/",
+        "txt_dir": "D:/torch_keras_code/KiTs19_seg/un-et/logs/",
+        "data_path_name": "data_jpg_0/",
+        "label_path_name": "label_jpg/",
+        "data_txt_name":  "data_jpg_0.txt",
+        "label_txt_name": "label_jpg_0.txt",
+        "train_val": 0.8,
+        "vis_name":"first",
+        "use_gpu":true,
+        "gpu_id": 0,
+        "criterion":"dice_loss_3",
+        "criter_list": ["soft_dice_loss","dice_loss_pancreas_only","dice_loss_2","dice_loss_3","dice_loss_two_seg"],
+        "dataset_name": "Kits_2d",
+        "data_list": ["Deeplab","Kits_2d","Kits_2d_two","Kits_3d"],
+        "Label_Smoothing": false
+    },
+    "data_set_trans": {
+        "input_nc": 1,
+        "output_nc": 3,
+        "imge_size": 512,
+        "random_trans": false,
+        "random_img_size": 384,
+        "RandomHorizontalFlip": 0.5,
+        "RandomVerticalFlip": 0.5,
+        "RandomRotation": 45
+    },
+    "model":{
+        "model_type":"unet_2D",
+        "model_list": ["vgg_unet","unet_2D","unet_CT_att","unet_CT_two_seg"],
+        "continue_train": false,
+        "which_epoch": 0,
+        "input_nc": 1,
+        "output_nc": 3,
+        "feature_scale": 4,
+        "path_pre_model":"/home/linda/wzm/Attention-Gated-Networks/src/atten_unet/090_net_0.39612.pth",
+        "checkpoints_dir": "/home/linda/wzm/Attention-Gated-Networks/src/atten_unet/"
+    },
+    "save_dir":
+    {
+        "save_loss_dir":"D:/torch_keras_code/KiTs19_seg/un-et/logs/loss",
+        "save_pth_dir": "D:/torch_keras_code/KiTs19_seg/un-et/logs/pth"
+    },
+    "Option": {
+        "sgd": {
+            "lr_rate":0.001
+        },
+        "A_sgd": {
+            "lr_rate":0.001,
+            "Lambda": 0.0001,
+            "alpha": 0.75
+        },
+        "RMS": {
+            "lr_rate":0.001,
+            "Lambda": 0.0001,
+            "alpha": 0.75
+        },
+        "Adadelta": {
+            "lr_rate":1.0,
+            "rho": 0.9
+        },
+        "Adam": {
+            "lr_rate": 0.001,
+            "betas":[0.9,0.999]
+        },
+        "Adamx": {
+            "lr_rate": 0.001,
+            "betas":[0.9,0.999],
+            "weight_decay":1e-2
+        },
+        "AdaBound": {
+            "lr_rate": 0.001,
+            "betas":[0.9,0.999],
+            "weight_decay":1e-2
+        },
+        "AdaBoundW": {
+            "lr_rate": 0.001,
+            "betas":[0.9,0.999],
+            "weight_decay":1e-2
+        },
+        "AdaBelief": {
+            "lr_rate": 0.001,
+            "betas":[0.9,0.999],
+            "weight_decay":1e-2
+        }
+    },
+    "lr_scheduler": {
+        "Lambda":
+        {
+            "base_lr": 0.00001
+        },
+        "CyclicLR":
+        {
+            "base_lr":0.000002,
+            "max_lr":0.002,
+            "step_size_up": 10,
+            "step_size_down": 20,
+            "mode": "exp_range",
+            "model_list": ["triangular", "triangular2", "exp_range"],
+            "gamma": 0.97
+        },
+        "step":
+        {
+            "step_size":20,
+            "gamma":0.5
+        },
+        "multi_step":
+        {
+            "milestones": [20,40,80,100],
+            "gamma":0.3
+        },
+        "exponential":
+        {
+            "gamma":0.9
+        },
+        "cosine_Anneal":
+        {
+            "T_max": 20,
+            "eta_min": 0.000001
+        },
+        "plateau":
+        {
+            "mode": "min",
+            "factor":0.1,
+            "patience":10,
+            "verbose":false,
+            "threshold":0.0001,
+            "min_lr":0.000001
+        }
+    }
+}

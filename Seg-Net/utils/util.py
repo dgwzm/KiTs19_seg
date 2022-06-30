@@ -7,24 +7,6 @@ import os
 import collections
 import json
 import csv
-from skimage.exposure import rescale_intensity
-
-# Converts a Tensor into a Numpy array
-# |imtype|: the desired type of the converted numpy array
-def tensor2im(image_tensor, imgtype='img', datatype=np.uint8):
-    image_numpy = image_tensor[0].cpu().float().numpy()
-    if image_numpy.ndim == 4:# image_numpy (C x W x H x S)
-        mid_slice = image_numpy.shape[-1]//2
-        image_numpy = image_numpy[:,:,:,mid_slice]
-    if image_numpy.shape[0] == 1:
-        image_numpy = np.tile(image_numpy, (3, 1, 1))
-    image_numpy = np.transpose(image_numpy, (1, 2, 0))
-    if imgtype == 'img':
-        image_numpy = (image_numpy + 8) / 16.0 * 255.0
-    if np.unique(image_numpy).size == int(1):
-        return image_numpy.astype(datatype)
-    return rescale_intensity(image_numpy.astype(datatype))
-
 
 def diagnose_network(net, name='network'):
     mean = 0.0
@@ -38,11 +20,9 @@ def diagnose_network(net, name='network'):
     print(name)
     print(mean)
 
-
 def save_image(image_numpy, image_path):
     image_pil = Image.fromarray(image_numpy)
     image_pil.save(image_path)
-
 
 def info(object, spacing=10, collapse=1):
     """Print methods and doc strings.

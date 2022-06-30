@@ -1,7 +1,6 @@
 import numpy as np
 from .util import csv_write
 
-
 class BaseMeter(object):
     """Just a place holderb"""
 
@@ -17,7 +16,6 @@ class BaseMeter(object):
 
     def get_value(self):
         return self.val
-
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""

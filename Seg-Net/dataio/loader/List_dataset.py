@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
-import imageio
+import cv2
 import os
 import random
 import cv2 as cv
@@ -38,15 +38,15 @@ class LITS_dataset(torch.utils.data.Dataset):
         #j=np.random.randint(0,256+1)
         i=np.random.randint(0,512-self.wh+1)
         j=np.random.randint(0,512-self.wh+1)
-        #raw = imageio.imread(os.path.join(self.path_raw, self.filelist[index]))     #[:, :, 0]  # 直接返回numpy.ndarray 对象
-        raw = imageio.imread(self.image_filenames[index])
+        #raw = cv2.imread(os.path.join(self.path_raw, self.filelist[index]))     #[:, :, 0]  # 直接返回numpy.ndarray 对象
+        raw = cv2.imread(self.image_filenames[index])
         raw = raw[j:j + self.wh,i:i + self.wh]
         #raw  = raw.astype(np.float16)
         raw = torch.from_numpy(raw).float() / 255.
 
-        #label = imageio.imread(os.path.join(self.path_label, self.filelist[index]))  #[:, :, 0]
+        #label = cv2.imread(os.path.join(self.path_label, self.filelist[index]))  #[:, :, 0]
 
-        label = imageio.imread(self.target_filenames[index])
+        label = cv2.imread(self.target_filenames[index])
         label = label[j:j + self.wh, i:i + self.wh]
         label = torch.from_numpy(label).float()
         # print('read_raw: ' + str(raw.shape) + '|' + 'label' + str(label.shape))

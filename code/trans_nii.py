@@ -1,8 +1,12 @@
 import numpy as np
 import os
 import nibabel as nib
+import numpy as np
+import matplotlib.pyplot as plt
 from PIL import Image
+import cv2
 from tqdm import tqdm
+
 def save_np(list):
     path=r"D:\torch_keras_code\KiTs_old_data\case_00000\master_00000"
     for i in range(len(list)):
@@ -64,14 +68,14 @@ def save_img_jpg():
                 I=(up/down)*255
                 way_0 = np.array(I,dtype=np.uint8)
                 img_0 = Image.fromarray(way_0).convert('L')
-                save_path=os.path.join(new_dir_0,"%.3d.jpg"%(id_dex))
+                save_path=os.path.join(new_dir_0,"%.3d.png"%(id_dex))
                 img_0.save(save_path)
 
                 old[old<0]=0
                 old[old>255]=255
                 way_1 = np.array(old,dtype=np.uint8)
                 img_1 = Image.fromarray(way_1).convert('L')
-                save_path=os.path.join(new_dir_1,"%.3d.jpg"%(id_dex))
+                save_path=os.path.join(new_dir_1,"%.3d.png"%(id_dex))
                 img_1.save(save_path)
 
 def save_label_jpg():
@@ -79,7 +83,6 @@ def save_label_jpg():
     jpg_path="/home/linda/wzm/kits19/label_jpg"
     file_name_list=os.listdir(o_img_path)
     for f in tqdm(file_name_list):
-
         if "segment" in f:
             file_nam=f[:-3]
             new_dir=os.path.join(jpg_path,file_nam)
@@ -96,9 +99,9 @@ def save_label_jpg():
                 img[img==1]=125
                 img[img==2]=255
                 way_0 = np.array(img,dtype=np.uint8)
-                img_0 = Image.fromarray(way_0).convert('L')
-                save_path=os.path.join(new_dir,"%.3d.jpg"%(id_dex))
-                img_0.save(save_path)
+                save_path=os.path.join(new_dir,"%.3d.png"%(id_dex))
+                cv2.imwrite(save_path,way_0)
+                #img_0.save(save_path)
 
 
 if __name__=='__main__':

@@ -1,0 +1,63 @@
+{
+    "train":{
+        "n_epochs": 150,
+        "save_epoch_freq": 1,
+        "lr_policy": "CyclicLR",
+        "lr_policy_list": ["lambda","CyclicLR","step","multi_step","cosine_Anneal","plateau","exponential"],
+        "optim":"Adamx",
+        "optim_list":["sgd","A_sgd","RMS","Adadelta","Adam","Adamx","AdaBound","AdaBoundW","AdaBelief"],
+        "batchSize": 24,
+        "num_workers" : 4,
+        "data_dir": "D:/torch_keras_code/kits_data_label",
+        "txt_dir": "D:/torch_keras_code/KiTs19_seg/un-et/logs",
+        "data_path_name": "data_jpg_0",
+        "label_path_name": "label_jpg",
+        "data_txt_name":  "data_jpg_0.txt",
+        "label_txt_name": "label_jpg_0.txt",
+        "train_val": 0.8,
+        "vis_name":"first",
+        "use_gpu":true,
+        "gpu_id": 0,
+        "criterion":"dice_loss_3",
+        "criter_list": ["soft_dice_loss","dice_loss_pancreas_only","dice_loss_2","dice_loss_3","dice_loss_two_seg"],
+        "dataset_name": "Kits_2d",
+        "data_list": ["Deeplab","Kits_2d","Kits_2d_two","Kits_3d"],
+        "Label_Smoothing": false
+    },
+    "data_set_trans": {
+        "input_nc": 1,
+        "output_nc": 3,
+        "imge_size": 512,
+        "random_trans": false,
+        "random_img_size": 384,
+        "RandomHorizontalFlip": 0.5,
+        "RandomVerticalFlip": 0.5,
+        "RandomRotation": 45
+    },
+    "model":{
+        "model_type":"unet_2D",
+        "model_list": ["vgg_unet","unet_2D","unet_CT_att","unet_CT_two_seg"],
+        "continue_train": false,
+        "which_epoch": 0,
+        "input_nc": 1,
+        "output_nc": 3,
+        "feature_scale": 4,
+        "path_pre_model":"/home/linda/wzm/Attention-Gated-Networks/src/atten_unet/090_net_0.39612.pth",
+        "checkpoints_dir": "/home/linda/wzm/Attention-Gated-Networks/src/atten_unet/"
+    },
+    "save_dir": {
+        "save_loss_dir":"D:/torch_keras_code/KiTs19_seg/un-et/logs/loss",
+        "save_pth_dir": "D:/torch_keras_code/KiTs19_seg/un-et/logs/pth"
+    },
+    "Option": {
+        "sgd": {
+            "lr_rate":0.001
+        },
+        "A_sgd": {
+            "lr_rate":0.001,
+            "lambdas": 0.0001,
+            "alpha": 0.75
+        }
+    }
+
+}

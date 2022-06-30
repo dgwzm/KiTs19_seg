@@ -2,7 +2,6 @@ import math
 import torch.nn as nn
 from .utils import unetConv2, unetUp
 import torch.nn.functional as F
-from models.networks_other import init_weights
 
 class unet_2D(nn.Module):
 
@@ -39,13 +38,6 @@ class unet_2D(nn.Module):
 
         # final conv (without any concat)
         self.final = nn.Conv2d(filters[0], n_classes, 1)
-
-        # initialise weights
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                init_weights(m, init_type='kaiming')
-            elif isinstance(m, nn.BatchNorm2d):
-                init_weights(m, init_type='kaiming')
 
 
     def forward(self, inputs):

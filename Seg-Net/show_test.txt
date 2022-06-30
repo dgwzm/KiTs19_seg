@@ -1,4 +1,0 @@
-  File "train_segmentation.py", line 95
-    error_logger.update({**errors, **stats}, split=split)
-                          ^
-SyntaxError: invalid syntax
