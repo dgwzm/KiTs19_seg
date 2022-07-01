@@ -31,7 +31,7 @@ class Trainer:
             device = 'cuda:{}'.format(opts.train.gpu_id) if torch.cuda.is_available() else 'cpu'
             self.device = torch.device(device)
             print('Compute device: ' + str(self.device))
-            #self.model = torch.nn.DataParallel(self.model)
+            self.model = torch.nn.DataParallel(self.model, device_ids=range(torch.cuda.device_count()))
             #cudnn.benchmark = True
             self.model = self.model.to(self.device)
 

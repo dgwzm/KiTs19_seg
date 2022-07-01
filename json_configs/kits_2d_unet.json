@@ -1,13 +1,13 @@
 {
     "train":{
-        "n_epochs": 10,
+        "n_epochs": 50,
         "save_epoch_freq": 1,
         "lr_policy": "CyclicLR",
         "lr_policy_list": ["Lambda","CyclicLR","step","multi_step","cosine_Anneal","plateau","exponential"],
         "optim":"Adadelta",
         "optim_list":["sgd","A_sgd","RMS","Adadelta","Adam","Adamx","AdaBound","AdaBoundW","AdaBelief"],
-        "batchSize": 16,
-        "num_workers" : 1,
+        "batchSize": 32,
+        "num_workers" : 4,
         "data_dir": "../../",
         "txt_dir": "./logs/",
         "data_path_name": "data_jpg_0/",
@@ -23,7 +23,7 @@
         "dataset_name": "Kits_2d",
         "data_list": ["Deeplab","Kits_2d","Kits_2d_two","Kits_3d"],
         "Label_Smoothing": false,
-        "test_model_data": true,
+        "test_model_data": false,
         "train_len": 128,
         "val_len": 64
 
