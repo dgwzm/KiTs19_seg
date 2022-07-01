@@ -55,9 +55,8 @@ class DiceLoss_2(nn.Module):
 class DiceLoss_3(nn.Module):
     def __init__(self,opts):
         super(DiceLoss_3, self).__init__()
-        self.smooth=0.001
+        self.smooth=0.0001
         self.n_classes=3
-        wh=256
         self.one_hot_encoder=Get_One_Hot(opts.data_set_trans.random_img_size,depth=3)
 
     def forward(self, inputs, target):
@@ -123,7 +122,7 @@ class SoftDiceLoss(nn.Module):
         self.n_classes = n_classes
   
     def forward(self, input, target):
-        smooth = 0.000000001
+        smooth = 1
         batch_size = input.size(0)
   
         input = F.softmax(input, dim=1).view(batch_size, self.n_classes, -1)

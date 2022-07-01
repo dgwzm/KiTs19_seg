@@ -7,13 +7,13 @@ import numpy as np
 import scipy.signal
 from PIL import Image
 #from torch.utils.data.dataset import Dataset
-from torch.utils.data import Dataset
 import json
 import collections
 from os.path import join
 from os import listdir
 import torch
 import torchvision.transforms as transform
+from torch.utils.data import Dataset
 
 def json_file(filename):
     def _json_object_hook(d):
@@ -150,11 +150,14 @@ class DeeplabDataset(Dataset):
         return jpg, png, seg_labels
 
 class Kits_2d_dataset(Dataset):
-    def __init__(self, types="train",opts=None):
+    def __init__(self, opts,way="train"):
         super(Kits_2d_dataset, self).__init__()
-        self.opt=opts
         self.wh = opts.data_set_trans.imge_size
         self.random_wh = opts.data_set_trans.random_img_size
+
+        self.random_trans=opts.data_set_trans.random_trans
+        self.RandomHorizontalFlip=opts.data_set_trans.RandomHorizontalFlip
+        self.RandomVerticalFlip=opts.data_set_trans.RandomVerticalFlip
 
         self.data_txt_path=join(opts.train.txt_dir, opts.train.data_txt_name)
         self.label_txt_path=join(opts.train.txt_dir, opts.train.label_txt_name)
@@ -164,24 +167,23 @@ class Kits_2d_dataset(Dataset):
 
         self.d_name_list=open(self.data_txt_path,"r").readlines()
         self.l_name_list=open(self.label_txt_path,"r").readlines()
-        print("d_name_list len:",len(self.d_name_list))
-        print("l_name_list len:",len(self.l_name_list))
 
         data_len=len(self.l_name_list)
         train_len=int(data_len*opts.train.train_val)
         val_len=data_len-train_len
 
-        if types=="train":
+        if opts.train.test_model_data:
+            train_len=opts.train.train_len
+            val_len=opts.train.val_len
+
+        if way=="train":
             self.image_filenames  = self.d_name_list[:train_len]
             self.target_filenames = self.l_name_list[:train_len]
-
         else:
             self.image_filenames  = self.d_name_list[train_len:train_len+val_len]
             self.target_filenames = self.l_name_list[train_len:train_len+val_len]
 
         assert len(self.image_filenames) == len(self.target_filenames)
-
-        #print(self.filelist[:5])
 
     def __len__(self):
         return len(self.image_filenames)  #len(self.filelist)
@@ -195,38 +197,28 @@ class Kits_2d_dataset(Dataset):
         label_jpg_path=os.path.join(self.label_dir,self.target_filenames[index][:-1])
 
         raw = Image.open(data_jpg_path)
-        print("data:",raw.size)
+
         raw=np.array(raw)
         raw = raw[j:j + self.random_wh,i:i + self.random_wh]
         raw = torch.from_numpy(raw).float() / 255.
 
         label = Image.open(label_jpg_path)
-        print("label:",label.size)
+
         label=np.array(label)
-        label[label<100]=0
-        label[label>100 and label<200]=125
-        label[label>200]=255
+        label[label==125]=1
+        label[label==255]=2
         label = label[j:j + self.random_wh, i:i + self.random_wh]
 
-        for x in label:
-            for i in x:
-                if i not in [0,125,255]:
-                    print("error d:",i)
-                    raise "---err!---"
         label = torch.from_numpy(label).float()
 
-        if self.opt.data_set_trans.random_trans:
-            if random.uniform(0,1)<self.opt.data_set_trans.RandomHorizontalFlip:
+        if self.random_trans:
+            if random.uniform(0,1)<self.RandomHorizontalFlip:
                 raw=transform.RandomHorizontalFlip(1)(raw)
                 label=transform.RandomHorizontalFlip(1)(label)
 
-            if random.uniform(0,1)<self.opt.data_set_trans.RandomVerticalFlip:
+            if random.uniform(0,1)<self.RandomVerticalFlip:
                 raw=transform.RandomVerticalFlip(1)(raw)
                 label=transform.RandomVerticalFlip(1)(label)
-
-            if random.uniform(0,1)<self.opt.data_set_trans.RandomRotation:
-                raw=transform.RandomRotation(1)(raw)
-                label=transform.RandomRotation(1)(label)
 
         return raw, label
 
@@ -349,6 +341,15 @@ class Kits_3d_dataset(Dataset):
         # print(raw.shape, label.shape) torch.Size([4,1,256,256]),torch.Size([4,256,256])
 
         return raw, label
+
+class test_data(Dataset):
+    def __init__(self,opts,way="train"):
+        super(test_data, self).__init__()
+        self.test_data_list=[i for i in range(200)]
+    def __len__(self):
+        return len(self.test_data_list)
+    def __getitem__(self, index):
+        return self.test_data_list[index],index
 
 class LossHistory():
     def __init__(self, log_dir):

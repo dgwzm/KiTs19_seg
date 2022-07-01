@@ -1,15 +1,15 @@
 {
     "train":{
-        "n_epochs": 150,
+        "n_epochs": 10,
         "save_epoch_freq": 1,
         "lr_policy": "CyclicLR",
         "lr_policy_list": ["Lambda","CyclicLR","step","multi_step","cosine_Anneal","plateau","exponential"],
         "optim":"Adadelta",
         "optim_list":["sgd","A_sgd","RMS","Adadelta","Adam","Adamx","AdaBound","AdaBoundW","AdaBelief"],
-        "batchSize": 24,
-        "num_workers" : 4,
-        "data_dir": "D:/torch_keras_code/kits_data_label/",
-        "txt_dir": "D:/torch_keras_code/KiTs19_seg/un-et/logs/",
+        "batchSize": 16,
+        "num_workers" : 1,
+        "data_dir": "../../",
+        "txt_dir": "./logs/",
         "data_path_name": "data_jpg_0/",
         "label_path_name": "label_jpg/",
         "data_txt_name":  "data_jpg_0.txt",
@@ -22,17 +22,20 @@
         "criter_list": ["soft_dice_loss","dice_loss_pancreas_only","dice_loss_2","dice_loss_3","dice_loss_two_seg"],
         "dataset_name": "Kits_2d",
         "data_list": ["Deeplab","Kits_2d","Kits_2d_two","Kits_3d"],
-        "Label_Smoothing": false
+        "Label_Smoothing": false,
+        "test_model_data": true,
+        "train_len": 128,
+        "val_len": 64
+
     },
     "data_set_trans": {
         "input_nc": 1,
         "output_nc": 3,
         "imge_size": 512,
-        "random_trans": false,
-        "random_img_size": 384,
+        "random_trans": true,
+        "random_img_size": 304,
         "RandomHorizontalFlip": 0.5,
-        "RandomVerticalFlip": 0.5,
-        "RandomRotation": 45
+        "RandomVerticalFlip": 0.5
     },
     "model":{
         "model_type":"unet_2D",
@@ -42,13 +45,13 @@
         "input_nc": 1,
         "output_nc": 3,
         "feature_scale": 4,
-        "path_pre_model":"/home/linda/wzm/Attention-Gated-Networks/src/atten_unet/090_net_0.39612.pth",
-        "checkpoints_dir": "/home/linda/wzm/Attention-Gated-Networks/src/atten_unet/"
+        "path_pre_model":"./logs/pth/val_loss_1.8998.pth",
+        "checkpoints_dir": "../atten_unet/"
     },
     "save_dir":
     {
-        "save_loss_dir":"D:/torch_keras_code/KiTs19_seg/un-et/logs/loss",
-        "save_pth_dir": "D:/torch_keras_code/KiTs19_seg/un-et/logs/pth"
+        "save_loss_dir":"./logs/loss/",
+        "save_pth_dir": "./logs/pth/"
     },
     "Option": {
         "sgd": {
@@ -100,8 +103,8 @@
         },
         "CyclicLR":
         {
-            "base_lr":0.000002,
-            "max_lr":0.002,
+            "base_lr":0.0002,
+            "max_lr":0.0002,
             "step_size_up": 10,
             "step_size_down": 20,
             "mode": "exp_range",

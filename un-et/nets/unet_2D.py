@@ -60,6 +60,7 @@ class unet_2D(nn.Module):
         up1 = self.up_concat1(conv1, up2)
 
         final = self.final(up1)
+        final = self.apply_argmax_softmax(final)
 
         return final
 

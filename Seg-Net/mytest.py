@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
-p=r"D:\torch_keras_code\kits_data_label\label_jpg\segmentation_00000\298.png"
+p=r"../../label_jpg/segmentation_00000/322.png"
 i=cv2.imread(p)
 print(i.shape)
 i=i[:,:,0]
@@ -14,7 +14,6 @@ for x in d:
     for i in x:
         if i not in [0,125,255]:
             nm=nm+1
-            ar_list.append(i)
 print(nm)
 plt.figure(0)
 plt.imshow(d)

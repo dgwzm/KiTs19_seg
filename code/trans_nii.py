@@ -84,7 +84,7 @@ def save_label_jpg():
     file_name_list=os.listdir(o_img_path)
     for f in tqdm(file_name_list):
         if "segment" in f:
-            file_nam=f[:-3]
+            file_nam=f[:-4]
             new_dir=os.path.join(jpg_path,file_nam)
             if os.path.exists(new_dir):
                 continue

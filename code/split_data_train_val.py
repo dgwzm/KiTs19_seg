@@ -1,9 +1,10 @@
 import os
 
-data_path=r"D:\torch_keras_code\kits_data_label\data_jpg_0"
-label_path=r"D:\torch_keras_code\kits_data_label\label_jpg"
+data_path=r"../../data_jpg_0"
+label_path=r"../../label_jpg"
 
 data_file_list=os.listdir(data_path)
+
 data_file_lists=sorted(data_file_list)
 data_txt_f=open("../un-et/logs/data_jpg_0.txt", 'w')
 data_file_id={}
@@ -18,7 +19,7 @@ for i in data_file_lists:
     d_dir=os.path.join(data_path,i)
     jpg_lists=sorted(os.listdir(d_dir))
     for j in jpg_lists:
-        data_file_id[i[-5:]].append(j)
+        data_file_id[i[-5:]].append(j[:-4])
         #w=os.path.join(d_dir,j)
         w=i+'/'+j
         data_txt_f.writelines(w+"\n")
@@ -29,7 +30,7 @@ for i in label_file_lists:
     d_dir=os.path.join(label_path,i)
     jpg_lists=sorted(os.listdir(d_dir))
     for j in jpg_lists:
-        if j in data_file_id[f_id]:
+        if j[:-4] in data_file_id[f_id]:
             w=os.path.join(d_dir,j)
             w=i+'/'+j
             label_txt_f.writelines(w+"\n")
