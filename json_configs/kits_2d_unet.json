@@ -2,9 +2,9 @@
     "train":{
         "n_epochs": 50,
         "save_epoch_freq": 1,
-        "lr_policy": "CyclicLR",
+        "lr_policy": "Lambda",
         "lr_policy_list": ["Lambda","CyclicLR","step","multi_step","cosine_Anneal","plateau","exponential"],
-        "optim":"Adadelta",
+        "optim":"A_sgd",
         "optim_list":["sgd","A_sgd","RMS","Adadelta","Adam","Adamx","AdaBound","AdaBoundW","AdaBelief"],
         "batchSize": 64,
         "num_workers" : 6,
@@ -62,7 +62,7 @@
         "A_sgd": {
             "lr_rate":0.001,
             "Lambda": 0.0001,
-            "alpha": 0.75
+            "alpha": 0.85
         },
         "RMS": {
             "lr_rate":0.001,

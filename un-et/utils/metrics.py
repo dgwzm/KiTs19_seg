@@ -4,7 +4,7 @@ import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 from .Add_Optimizer import AdaBound,AdaBelief,AdaBoundW
 from .Loss import *
-
+import math
 def f_score(inputs, target, beta=1, smooth = 1e-5, threhold = 0.5):
     n, c, h, w = inputs.size()
     nt, ht, wt, ct = target.size()
@@ -111,8 +111,10 @@ def get_scheduler(optimizer, opt):
     lr_policy=opt.train.lr_policy
     if lr_policy == 'Lambda':
         def lambda_rule(epoch):
-            lr_l = 1.0 - max(0, epoch + 1 + opt.epoch_count - opt.niter) / float(opt.niter_decay + 1)
-            return lr_l
+            # Scheduler https://arxiv.org/pdf/1812.01187.pdf
+            lr_l = (((1 + math.cos(epoch * math.pi / opt.train.n_epochs)) / 2) ** 1.0) * 0.8 + 0.1
+            return lr_l*0.001
+
         scheduler = lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_rule)
         return scheduler
     elif lr_policy == 'CyclicLR':

@@ -31,11 +31,6 @@ class Trainer:
             device = 'cuda:{}'.format(opts.train.gpu_id) if torch.cuda.is_available() else 'cpu'
             self.device = torch.device(device)
             print('Compute device: ' + str(self.device))
-            if opts.train.use_gpu_list:
-                self.model = torch.nn.DataParallel(self.model, device_ids=opts.train.gpu_list)
-                self.model = self.model.cuda()
-            else:
-                self.model = self.model.to(self.device)
 
         self.optimizer    = get_optimizer(self.model.parameters(),opts)
         self.lr_scheduler = get_scheduler(self.optimizer,opts)
@@ -56,6 +51,12 @@ class Trainer:
             model_dict.update(pretrained_dict)
             self.model.load_state_dict(model_dict)
 
+        if opts.train.use_gpu:
+            if opts.train.use_gpu_list:
+                self.model = torch.nn.parallel.DistributedDataParallel(self.model)
+                #self.model = self.model.cuda()
+            self.model = self.model.to(self.device)
+
         self.train_data_calss   = self.data_class(opts=opts,way="train")
         self.val_data_calss     = self.data_class(opts=opts,way="val")
 
@@ -74,8 +75,6 @@ class Trainer:
         train_loss = 0.0
         train_score=0
         self.model.train()
-        start_time = time.time()
-        #with tqdm(total=self.epoch_size_train,desc=f'Epoch {epoch + 1}/{self.n_epochs}',postfix=dict,mininterval=0.3) as pbar:
 
         tbar = tqdm(self.train_dataset,desc=f'Epoch {epoch + 1}/{self.n_epochs}')
 
@@ -92,14 +91,11 @@ class Trainer:
             train_loss += loss.item()
             train_score+= score
 
-            waste_time = time.time() - start_time
             op_lr=get_lr(self.optimizer)
+            tbar.set_description(
+                't_loss:%.5f,acc:%.5f,lr:%.4f' %
+                (train_loss / (iteration + 1),train_score / (iteration + 1),op_lr))
 
-            tbar.set_postfix(**{'train_loss' : train_loss / (iteration + 1),
-                                'train_score' : train_score / (iteration + 1),
-                                's/step'    : waste_time,
-                                'lr'        : op_lr})
-            start_time = time.time()
         a_t_loss=train_loss / len(self.train_dataset)
         self.train_loss_list.append(a_t_loss)
         self.train_acc_list.append(train_score / len(self.train_dataset))
@@ -122,8 +118,11 @@ class Trainer:
                 score=2-loss.item()
                 val_loss += loss.item()
                 val_score+=score
-            tbar.set_postfix(**{'val_loss' : val_loss / (iteration + 1),
-                                'val_score': val_score / (iteration + 1)})
+
+            tbar.set_description(
+                'v_loss:%.5f,acc:%.5f' %
+                (val_loss / (iteration + 1),val_score / (iteration + 1)))
+
         t_loss=val_loss / len(self.val_dataset)
 
         if t_loss<self.best_loss:

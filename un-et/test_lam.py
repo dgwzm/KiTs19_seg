@@ -11,13 +11,13 @@ for i in range(1000):
         max=max+1
 print(max,min)
 
-# def lambda_rule(epoch):
-#     lr_l = (0.02+math.cos((epoch*math.pi/100)**2)/2)*0.09+0.1
-#     return lr_l
-#
-# list_d=[]
-# for i in range(100):
-#     s=lambda_rule(i)
-#     list_d.append(s)
-# plt.plot(list_d)
-# plt.show()
+def lambda_rule(epoch):
+    lr_l = (((1 + math.cos(epoch * math.pi / 150)) / 2) ** 1.0) * 0.8 + 0.1
+    return lr_l
+
+list_d=[]
+for i in range(150):
+    s=lambda_rule(i)*0.001
+    list_d.append(s)
+plt.plot(list_d)
+plt.show()
