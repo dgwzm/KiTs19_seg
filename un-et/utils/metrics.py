@@ -88,22 +88,22 @@ def get_optimizer(params,opt):
     else:
         raise "Not optimer!!"
 
-def get_criterion(opts):
+def get_criterion(opts,device):
     criter=opts.train.criterion
     if criter == 'soft_dice_loss':
-        criterion = SoftDiceLoss(opts.model.output_nc).cuda()
+        criterion = SoftDiceLoss(opts.model.output_nc).to(device)
         return criterion
     elif criter == 'dice_loss_pancreas_only':
-        criterion = CustomSoftDiceLoss(opts.model.output_nc, class_ids=[0, 2]).cuda()
+        criterion = CustomSoftDiceLoss(opts.model.output_nc, class_ids=[0, 2]).to(device)
         return criterion
     elif criter == 'dice_loss_2':
-        criterion = DiceLoss_2(opts).cuda()
+        criterion = DiceLoss_2(opts).to(device)
         return criterion
     elif criter == 'dice_loss_3':
-        criterion = DiceLoss_3(opts).cuda()
+        criterion = DiceLoss_3(opts,device).to(device)
         return criterion
     elif criter == 'dice_loss_two_seg':
-        criterion = DiceLoss_two_seg(opts).cuda()
+        criterion = DiceLoss_two_seg(opts).to(device)
         return criterion
 
 def get_scheduler(optimizer, opt):

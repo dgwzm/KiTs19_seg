@@ -39,7 +39,7 @@ class Trainer:
 
         self.optimizer    = get_optimizer(self.model.parameters(),opts)
         self.lr_scheduler = get_scheduler(self.optimizer,opts)
-        self.criterion    = get_criterion(opts)
+        self.criterion    = get_criterion(opts,self.device)
         self.accuracy     = f_score
         self.data_class   = get_dataset(opts.train.dataset_name)
 

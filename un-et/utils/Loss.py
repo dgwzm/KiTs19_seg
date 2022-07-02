@@ -53,11 +53,11 @@ class DiceLoss_2(nn.Module):
         return loss_s
 
 class DiceLoss_3(nn.Module):
-    def __init__(self,opts):
+    def __init__(self,opts,device):
         super(DiceLoss_3, self).__init__()
         self.smooth=0.0001
         self.n_classes=3
-        self.one_hot_encoder=Get_One_Hot(opts.data_set_trans.random_img_size,depth=3)
+        self.one_hot_encoder=Get_One_Hot(opts.data_set_trans.random_img_size,depth=3,device=device)
 
     def forward(self, inputs, target):
         batch_size=target.size(0)
@@ -186,10 +186,10 @@ class One_Hot(nn.Module):
         return self.__class__.__name__ + "({})".format(self.depth)
 
 class Get_One_Hot(nn.Module):
-    def __init__(self,wh,depth=2):
+    def __init__(self,wh,depth=2,device="cuda:0"):
         super(Get_One_Hot, self).__init__()
         self.wh=wh
-        self.ones = torch.sparse.torch.eye(depth).cuda()
+        self.ones = torch.sparse.torch.eye(depth).to(device)
 
     def forward(self, label):
         batch=label.size(0)
