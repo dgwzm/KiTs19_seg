@@ -17,6 +17,8 @@
         "train_val": 0.8,
         "vis_name":"first",
         "use_gpu":true,
+        "use_gpu_list":true,
+        "gpu_list": [1,2,3],
         "gpu_id": 0,
         "criterion":"dice_loss_3",
         "criter_list": ["soft_dice_loss","dice_loss_pancreas_only","dice_loss_2","dice_loss_3","dice_loss_two_seg"],

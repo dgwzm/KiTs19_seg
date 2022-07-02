@@ -1,6 +1,8 @@
 Failed to connect to github.com port 443 after 21089 ms: Timed out
 git config --global --unset http.proxy
+git config --global https.proxy http://127.0.0.1:1080
 或者 翻墙
 
 OpenSSL SSL_read: Connection was reset, errno 10054
 git config --global http.sslVerify "false"
+git config lfs.https://github.com/dgwzm/KiTs19_seg.git/info/lfs.locksverify false
