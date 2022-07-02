@@ -53,7 +53,7 @@ class Trainer:
 
         if opts.train.use_gpu:
             if opts.train.use_gpu_list:
-                self.model = torch.nn.DataParallel(self.model)
+                self.model = torch.nn.DataParallel(self.model,device_ids=[0,1,2,3])
                 #self.model = self.model.cuda()
             self.model = self.model.to(self.device)
 
