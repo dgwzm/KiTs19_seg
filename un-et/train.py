@@ -33,8 +33,9 @@ class Trainer:
             print('Compute device: ' + str(self.device))
             if opts.train.use_gpu_list:
                 self.model = torch.nn.DataParallel(self.model, device_ids=opts.train.gpu_list)
-            #cudnn.benchmark = True
-            self.model = self.model.cuda()
+                self.model = self.model.cuda()
+            else:
+                self.model = self.model.to(self.device)
 
         self.optimizer    = get_optimizer(self.model.parameters(),opts)
         self.lr_scheduler = get_scheduler(self.optimizer,opts)
