@@ -53,6 +53,10 @@ class Trainer:
 
         if opts.train.use_gpu:
             if opts.train.use_gpu_list:
+                torch.distributed.init_process_group(backend='nccl',  # distributed backend
+                                        init_method='tcp://127.0.0.1:9999',  # init method
+                                        world_size=1,  # number of nodes
+                                        rank=0)  # node rank
                 self.model = torch.nn.parallel.DistributedDataParallel(self.model)
                 #self.model = self.model.cuda()
             self.model = self.model.to(self.device)
