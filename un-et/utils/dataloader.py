@@ -152,6 +152,7 @@ class DeeplabDataset(Dataset):
 class Kits_2d_dataset(Dataset):
     def __init__(self, opts,way="train"):
         super(Kits_2d_dataset, self).__init__()
+        self.way=way
         self.wh = opts.data_set_trans.imge_size
         self.random_wh = opts.data_set_trans.random_img_size
 
@@ -176,14 +177,18 @@ class Kits_2d_dataset(Dataset):
             train_len=opts.train.train_len
             val_len=opts.train.val_len
 
-        if way=="train":
+        if self.way=="train":
             self.image_filenames  = self.d_name_list[:train_len]
             self.target_filenames = self.l_name_list[:train_len]
-        else:
+        elif self.way in ["val","pre_val"]:
             self.image_filenames  = self.d_name_list[train_len:train_len+val_len]
             self.target_filenames = self.l_name_list[train_len:train_len+val_len]
+        elif self.way=="pre_test":
+            self.image_filenames  = self.d_name_list[data_len:]
+            self.target_filenames = [0]
 
-        assert len(self.image_filenames) == len(self.target_filenames)
+        if self.way!="pre_test":
+            assert len(self.image_filenames) == len(self.target_filenames)
 
     def __len__(self):
         return len(self.image_filenames)  #len(self.filelist)
@@ -221,11 +226,44 @@ class Kits_2d_dataset(Dataset):
                 label=transform.RandomVerticalFlip(1)(label)
 
         return raw, label
+    def pre_val_read_data(self, index):
+
+        data_jpg_path =os.path.join(self.data_dir,self.image_filenames[index][:-1])
+        label_jpg_path=os.path.join(self.label_dir,self.target_filenames[index][:-1])
+        raw = Image.open(data_jpg_path)
+        raw=np.array(raw)
+        raw = torch.from_numpy(raw).float() / 255.
+
+        label = Image.open(label_jpg_path)
+        label=np.array(label)
+        label[label==125]=1
+        label[label==255]=2
+        label = torch.from_numpy(label).float()
+        return raw, label
+
+    def pre_test_read_data(self, index):
+        data_jpg_path =os.path.join(self.data_dir,self.image_filenames[index][:-1])
+        raw = Image.open(data_jpg_path)
+        raw=np.array(raw)
+        raw = torch.from_numpy(raw).float() / 255.
+        return raw
 
     def __getitem__(self, index):
-        raw, label = self.read_data(index)
-        raw = raw.unsqueeze(0)
-        return raw, label
+        if self.way in ["train","val"]:
+            raw, label = self.read_data(index)
+            raw = raw.unsqueeze(0)
+            return raw, label
+
+        elif self.way=="pre_val":
+            raw, label = self.pre_val_read_data(index)
+            raw = raw.unsqueeze(0).unsqueeze(0)
+            label = label.unsqueeze(0)
+            return raw, label,self.image_filenames[index][:-1]
+
+        elif self.way=="pre_test":
+            raw = self.pre_test_read_data(index)
+            raw = raw.unsqueeze(0).unsqueeze(0)
+            return raw,self.image_filenames[index][:-1]
 
 class Kits_2d_two_seg_dataset(Dataset):
     #root_dir, split, transform=None, preload_data=False

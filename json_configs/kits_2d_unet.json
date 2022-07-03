@@ -6,7 +6,7 @@
         "lr_policy_list": ["Lambda","CyclicLR","step","multi_step","cosine_Anneal","plateau","exponential"],
         "optim":"Adadelta",
         "optim_list":["sgd","A_sgd","RMS","Adadelta","Adam","Adamx","AdaBound","AdaBoundW","AdaBelief"],
-        "batchSize": 64,
+        "batchSize": 80,
         "num_workers" : 6,
         "data_dir": "../../",
         "txt_dir": "./logs/",
@@ -14,6 +14,9 @@
         "label_path_name": "label_jpg/",
         "data_txt_name":  "data_jpg_0.txt",
         "label_txt_name": "label_jpg_0.txt",
+        "lr_csv": "lean_lr.csv",
+        "t_v_acc": "train_val_acc.csv",
+        "t_v_loss": "train_val_loss.csv",
         "train_val": 0.8,
         "vis_name":"first",
         "use_gpu":true,
@@ -23,12 +26,11 @@
         "criterion":"dice_loss_3",
         "criter_list": ["soft_dice_loss","dice_loss_pancreas_only","dice_loss_2","dice_loss_3","dice_loss_two_seg"],
         "dataset_name": "Kits_2d",
-        "data_list": ["Deeplab","Kits_2d","Kits_2d_two","Kits_3d"],
+        "data_list": ["Kits_2d","Kits_2d_two","Kits_3d","Kits_2_3"],
         "Label_Smoothing": false,
         "test_model_data": false,
         "train_len": 128,
         "val_len": 64
-
     },
     "data_set_trans": {
         "input_nc": 1,
@@ -46,8 +48,8 @@
         "which_epoch": 0,
         "input_nc": 1,
         "output_nc": 3,
-        "feature_scale": 4,
-        "path_pre_model":"./logs/pth/val_loss_1.9389.pth",
+        "feature_scale":4,
+        "path_pre_model":"./logs/pth/Kits_2d/val_loss_1.8820.pth",
         "checkpoints_dir": "../atten_unet/"
     },
     "save_dir":

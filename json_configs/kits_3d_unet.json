@@ -1,41 +1,61 @@
 {
     "train":{
-        "n_epochs": 150,
+        "n_epochs": 200,
         "save_epoch_freq": 1,
-        "lr_policy": "CyclicLR",
-        "lr_policy_list": ["lambda","CyclicLR","step","multi_step","cosine_Anneal","plateau","exponential"],
-        "optim":"Adamx",
+        "lr_policy": "Lambda",
+        "lr_policy_list": ["Lambda","CyclicLR","step","multi_step","cosine_Anneal","plateau","exponential"],
+        "optim":"Adadelta",
         "optim_list":["sgd","A_sgd","RMS","Adadelta","Adam","Adamx","AdaBound","AdaBoundW","AdaBelief"],
-        "batchSize": 24,
-        "num_workers" : 4,
-        "data_dir": "/home/linda/wzm/LITS/",
-        "data_path_name": "data_jpg_0",
-        "label_path_name": "label_jpg",
-        "train_len": 200,
-        "val_len": 10,
+        "batchSize": 64,
+        "num_workers" : 6,
+        "data_dir": "../../",
+        "txt_dir": "./logs/",
+        "data_path_name": "data_jpg_0/",
+        "label_path_name": "label_jpg/",
+        "data_txt_name":  "data_jpg_0.txt",
+        "label_txt_name": "label_jpg_0.txt",
+        "lr_csv": "lean_lr.csv",
+        "t_v_acc": "train_val_acc.csv",
+        "t_v_loss": "train_val_loss.csv",
+        "train_val": 0.8,
         "vis_name":"first",
-        "cut_gpu":"1",
         "use_gpu":true,
-        "criterion":"dice_loss_2",
-        "Label_Smoothing": false
+        "use_gpu_list":true,
+        "gpu_list": [1,2,3],
+        "gpu_id": 1,
+        "criterion":"dice_loss_3",
+        "criter_list": ["soft_dice_loss","dice_loss_pancreas_only","dice_loss_2","dice_loss_3","dice_loss_two_seg"],
+        "dataset_name": "Kits_2d",
+        "data_list": ["Kits_2d","Kits_2d_two","Kits_3d","Kits_2_3"],
+        "Label_Smoothing": false,
+        "test_model_data": false,
+        "train_len": 128,
+        "val_len": 64
     },
     "data_set_trans": {
+        "input_nc": 1,
+        "output_nc": 3,
         "imge_size": 512,
-        "random_img": true,
-        "random_img_size": 384,
+        "random_trans": true,
+        "random_img_size": 304,
         "RandomHorizontalFlip": 0.5,
-        "RandomVerticalFlip": 0.5,
-        "RandomRotation": 45
+        "RandomVerticalFlip": 0.5
     },
     "model":{
-        "model_type":"kits_2d",
-        "continue_train": false,
+        "model_type":"unet_2D",
+        "model_list": ["vgg_unet","unet_2D","unet_CT_att","unet_CT_two_seg"],
+        "continue_train": true,
         "which_epoch": 0,
         "input_nc": 1,
-        "output_nc": 2,
+        "output_nc": 3,
         "feature_scale": 4,
-        "path_pre_trained_model":"/home/linda/wzm/Attention-Gated-Networks/src/atten_unet/090_net_0.39612.pth",
-        "checkpoints_dir": "/home/linda/wzm/Attention-Gated-Networks/src/atten_unet/"
+        "path_pre_model":"./logs/pth/val_loss_1.9389.pth",
+        "checkpoints_dir": "../atten_unet/"
+    },
+    "save_dir":
+    {
+        "save_loss_dir":"./logs/loss/",
+        "save_pth_dir": "./logs/pth/"
     },
     "Option": {
         "sgd": {
@@ -43,12 +63,12 @@
         },
         "A_sgd": {
             "lr_rate":0.001,
-            "lambda": 0.0001,
-            "alpha": 0.75
+            "Lambda": 0.0001,
+            "alpha": 0.85
         },
         "RMS": {
             "lr_rate":0.001,
-            "lambda": 0.0001,
+            "Lambda": 0.0001,
             "alpha": 0.75
         },
         "Adadelta": {
@@ -81,20 +101,19 @@
         }
     },
     "lr_scheduler": {
-        "lambda":
+        "Lambda":
         {
-
+            "base_lr": 0.00001
         },
         "CyclicLR":
         {
-            "base_lr":0.000002,
-            "max_lr":0.002,
+            "base_lr":0.0002,
+            "max_lr":0.0002,
             "step_size_up": 10,
             "step_size_down": 20,
             "mode": "exp_range",
             "model_list": ["triangular", "triangular2", "exp_range"],
             "gamma": 0.97
-
         },
         "step":
         {
@@ -124,6 +143,5 @@
             "threshold":0.0001,
             "min_lr":0.000001
         }
-
     }
 }
