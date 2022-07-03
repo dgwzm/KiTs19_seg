@@ -1,10 +1,10 @@
 {
     "train":{
-        "n_epochs": 50,
+        "n_epochs": 200,
         "save_epoch_freq": 1,
         "lr_policy": "Lambda",
         "lr_policy_list": ["Lambda","CyclicLR","step","multi_step","cosine_Anneal","plateau","exponential"],
-        "optim":"A_sgd",
+        "optim":"Adadelta",
         "optim_list":["sgd","A_sgd","RMS","Adadelta","Adam","Adamx","AdaBound","AdaBoundW","AdaBelief"],
         "batchSize": 64,
         "num_workers" : 6,
@@ -47,7 +47,7 @@
         "input_nc": 1,
         "output_nc": 3,
         "feature_scale": 4,
-        "path_pre_model":"./logs/pth/val_loss_1.9715.pth",
+        "path_pre_model":"./logs/pth/val_loss_1.9389.pth",
         "checkpoints_dir": "../atten_unet/"
     },
     "save_dir":

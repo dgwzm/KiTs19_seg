@@ -46,14 +46,14 @@ class Trainer:
             self.best_loss=float(loss_d)
             self.best_loss_list.append(float(loss_d))
 
-            pretrained_dict = torch.load(model_path, map_location=self.device)
+            pretrained_dict = torch.load(model_path)
             pretrained_dict = {k: v for k, v in pretrained_dict["model_dict"].items() if np.shape(model_dict[k]) ==  np.shape(v)}
             model_dict.update(pretrained_dict)
             self.model.load_state_dict(model_dict)
 
         if opts.train.use_gpu:
             if opts.train.use_gpu_list:
-                self.model = torch.nn.DataParallel(self.model,device_ids=[0,1,2,3])
+                self.model = torch.nn.DataParallel(self.model,device_ids=[1,2,3])
                 #self.model = self.model.cuda()
             self.model = self.model.to(self.device)
 
@@ -69,7 +69,7 @@ class Trainer:
         self.epoch_size_train = len(self.train_dataset) // opts.train.batchSize
         self.epoch_size_val   = len(self.val_dataset)   // opts.train.batchSize
         self.n_epochs         = opts.train.n_epochs
-        print("epoch_size_train:",self.epoch_size_train,"epoch_size_val:",self.epoch_size_val)
+        print("batch_size:",opts.train.batchSize)
 
     def training(self, epoch):
         train_loss = 0.0
@@ -93,10 +93,11 @@ class Trainer:
 
             op_lr=get_lr(self.optimizer)
             tbar.set_description(
-                't_loss:%.5f,acc:%.5f,lr:%.4f' %
-                (train_loss / (iteration + 1),train_score / (iteration + 1),op_lr))
+                    'train epoch:%d/%d t_loss:%.5f acc:%.5f lr:%.4f' %
+                (epoch+1,self.n_epochs,train_loss / (iteration + 1),train_score / (iteration + 1),op_lr))
 
         a_t_loss=train_loss / len(self.train_dataset)
+        print("train loss:",a_t_loss)
         self.train_loss_list.append(a_t_loss)
         self.train_acc_list.append(train_score / len(self.train_dataset))
         self.lr_list.append(get_lr(self.optimizer))
@@ -120,11 +121,11 @@ class Trainer:
                 val_score+=score
 
             tbar.set_description(
-                'v_loss:%.5f,acc:%.5f' %
-                (val_loss / (iteration + 1),val_score / (iteration + 1)))
+                    'val epoch:%d/%d v_loss:%.5f acc:%.5f' %
+                (epoch+1,self.n_epochs,val_loss / (iteration + 1),val_score / (iteration + 1)))
 
         t_loss=val_loss / len(self.val_dataset)
-
+        print("val loss:",t_loss)
         if t_loss<self.best_loss:
             self.best_loss=t_loss
             self.best_loss_list.append(self.best_loss)
