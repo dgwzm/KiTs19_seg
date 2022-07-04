@@ -129,10 +129,10 @@ class Trainer:
             self.best_loss=t_loss
             self.best_loss_list.append(self.best_loss)
             if len(self.best_loss_list)>1:
-                last_pth=os.path.join(self.opt.train.dataset_name,self.opt.save_dir.save_pth_dir,
+                last_pth=os.path.join(self.opt.save_dir.save_pth_dir,
                                       "%s_%.4f.pth"%(self.type_name,self.best_loss_list[-2]))
                 print("Last:",last_pth)
-                print("New:",os.path.join(self.opt.train.dataset_name,self.opt.save_dir.save_pth_dir,
+                print("New:",os.path.join(self.opt.save_dir.save_pth_dir,
                                           "%s_%.4f.pth"%(self.type_name,self.best_loss)))
 
                 if os.path.exists(last_pth):
@@ -141,7 +141,7 @@ class Trainer:
                         'optimizer': self.optimizer.state_dict(),
                         'best_loss': self.best_loss,
                         'lr_d':self.lr_list[-1]},
-                         os.path.join(self.opt.train.dataset_name,self.opt.save_dir.save_pth_dir,
+                         os.path.join(self.opt.save_dir.save_pth_dir,
                                       "%s_%.4f.pth"%(self.type_name,self.best_loss)))
 
         self.val_loss_list.append(t_loss)
